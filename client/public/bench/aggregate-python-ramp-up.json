@@ -1,0 +1,19 @@
+{
+  "scenario": "aggregate",
+  "backend": "python",
+  "mode": "ramp-up",
+  "rps_target": 300,
+  "rps_actual": 166.2,
+  "latency": {
+    "p50": 6.8,
+    "p95": 17.7,
+    "p99": 32.0
+  },
+  "rss_mb": 124,
+  "rss_idle_mb": 71,
+  "cpu_pct": 55,
+  "cold_start_ms": 780,
+  "image_mb": 148,
+  "loc": 310,
+  "timestamp": "2026-11-01T12:00:00Z"
+}

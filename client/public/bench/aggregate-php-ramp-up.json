@@ -1,0 +1,19 @@
+{
+  "scenario": "aggregate",
+  "backend": "php",
+  "mode": "ramp-up",
+  "rps_target": 300,
+  "rps_actual": 153.6,
+  "latency": {
+    "p50": 7.5,
+    "p95": 19.5,
+    "p99": 35.2
+  },
+  "rss_mb": 84,
+  "rss_idle_mb": 48,
+  "cpu_pct": 59,
+  "cold_start_ms": 610,
+  "image_mb": 96,
+  "loc": 290,
+  "timestamp": "2026-11-01T12:00:00Z"
+}

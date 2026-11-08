@@ -1,0 +1,19 @@
+{
+  "scenario": "read-heavy",
+  "backend": "php",
+  "mode": "fixed-rps",
+  "rps_target": 400,
+  "rps_actual": 284.9,
+  "latency": {
+    "p50": 4.5,
+    "p95": 11.7,
+    "p99": 21.2
+  },
+  "rss_mb": 67,
+  "rss_idle_mb": 48,
+  "cpu_pct": 67,
+  "cold_start_ms": 610,
+  "image_mb": 96,
+  "loc": 290,
+  "timestamp": "2026-11-01T12:00:00Z"
+}

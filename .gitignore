@@ -1,0 +1,9 @@
+.project
+.env
+bench/results/
+*.log
+node_modules/
+client/node_modules/
+backends/node/node_modules/
+__pycache__/
+.DS_Store

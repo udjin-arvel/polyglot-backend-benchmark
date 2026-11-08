@@ -1,0 +1,19 @@
+{
+  "scenario": "mixed-crud",
+  "backend": "python",
+  "mode": "ramp-up",
+  "rps_target": 625,
+  "rps_actual": 401.1,
+  "latency": {
+    "p50": 3.9,
+    "p95": 10.1,
+    "p99": 18.3
+  },
+  "rss_mb": 113,
+  "rss_idle_mb": 71,
+  "cpu_pct": 40,
+  "cold_start_ms": 780,
+  "image_mb": 148,
+  "loc": 310,
+  "timestamp": "2026-11-01T12:00:00Z"
+}

@@ -1,0 +1,19 @@
+{
+  "scenario": "read-heavy",
+  "backend": "go",
+  "mode": "fixed-rps",
+  "rps_target": 400,
+  "rps_actual": 400,
+  "latency": {
+    "p50": 1.5,
+    "p95": 3.9,
+    "p99": 7.1
+  },
+  "rss_mb": 40,
+  "rss_idle_mb": 28,
+  "cpu_pct": 44,
+  "cold_start_ms": 180,
+  "image_mb": 14,
+  "loc": 410,
+  "timestamp": "2026-11-01T12:00:00Z"
+}

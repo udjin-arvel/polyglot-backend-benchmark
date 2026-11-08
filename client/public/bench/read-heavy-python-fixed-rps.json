@@ -1,0 +1,19 @@
+{
+  "scenario": "read-heavy",
+  "backend": "python",
+  "mode": "fixed-rps",
+  "rps_target": 400,
+  "rps_actual": 340.5,
+  "latency": {
+    "p50": 3.3,
+    "p95": 8.6,
+    "p99": 15.5
+  },
+  "rss_mb": 97,
+  "rss_idle_mb": 71,
+  "cpu_pct": 78,
+  "cold_start_ms": 780,
+  "image_mb": 148,
+  "loc": 310,
+  "timestamp": "2026-11-01T12:00:00Z"
+}

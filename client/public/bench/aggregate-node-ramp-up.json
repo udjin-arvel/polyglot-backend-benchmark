@@ -1,0 +1,19 @@
+{
+  "scenario": "aggregate",
+  "backend": "node",
+  "mode": "ramp-up",
+  "rps_target": 300,
+  "rps_actual": 193.5,
+  "latency": {
+    "p50": 4.6,
+    "p95": 12.0,
+    "p99": 21.6
+  },
+  "rss_mb": 88,
+  "rss_idle_mb": 62,
+  "cpu_pct": 43,
+  "cold_start_ms": 420,
+  "image_mb": 182,
+  "loc": 330,
+  "timestamp": "2026-11-01T12:00:00Z"
+}

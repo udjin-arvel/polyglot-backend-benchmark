@@ -1,0 +1,23 @@
+# Публичный стенд: наружу только client:80; Postgres и бэкенды без published-портов.
+# Запуск: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+# TLS: хостовый nginx/Caddy поверх client:80 (см. deploy/nginx.conf) или certbot.
+
+services:
+  pg:
+    ports: []
+
+  backend-go:
+    ports: []
+
+  backend-node:
+    ports: []
+
+  backend-php-nginx:
+    ports: []
+
+  backend-python:
+    ports: []
+
+  client:
+    ports:
+      - "80:8080"
