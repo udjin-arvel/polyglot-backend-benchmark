@@ -1,13 +1,13 @@
-FROM node:22-bookworm-slim AS build
+FROM node:22-alpine AS build
 WORKDIR /app
-COPY package.json ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
 ENV NITRO_PRESET=node-server
-ENV VITE_API_BASE_GO=
-ENV VITE_API_BASE_NODE=
-ENV VITE_API_BASE_PHP=
-ENV VITE_API_BASE_PYTHON=
+ENV VITE_API_BASE_GO=/api/go/
+ENV VITE_API_BASE_NODE=/api/node/
+ENV VITE_API_BASE_PHP=/api/php/
+ENV VITE_API_BASE_PYTHON=/api/python/
 RUN npm run build
 
 FROM nginx:alpine

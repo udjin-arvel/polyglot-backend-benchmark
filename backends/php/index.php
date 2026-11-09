@@ -99,7 +99,7 @@ function list_items(): void
     $limit = int_param($_GET['limit'] ?? '', 20);
     $offset = int_param($_GET['offset'] ?? '', 0);
     $sort = $_GET['sort'] ?? '-created_at';
-    if ($limit === null || $limit < 1 || $limit > 100) {
+    if ($limit === null || $limit < 1 || $limit > 10000) {
         err(400, 'bad_request', 'invalid query');
     }
     if ($offset === null || $offset < 0) {

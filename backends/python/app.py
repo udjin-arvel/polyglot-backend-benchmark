@@ -144,7 +144,7 @@ async def list_items(qs: dict[str, list[str]], send):
     limit = int_param(qs.get("limit", [""])[0], 20)
     offset = int_param(qs.get("offset", [""])[0], 0)
     sort = qs.get("sort", ["-created_at"])[0] or "-created_at"
-    if limit is None or limit < 1 or limit > 100:
+    if limit is None or limit < 1 or limit > 10000:
         await err(send, 400, "bad_request", "invalid query")
         return
     if offset is None or offset < 0:

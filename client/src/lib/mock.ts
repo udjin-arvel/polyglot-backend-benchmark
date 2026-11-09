@@ -64,7 +64,7 @@ function handle(method: string, path: string, body: any): unknown {
     const q = url.searchParams;
     const limit = Number(q.get("limit") ?? 20);
     const offset = Number(q.get("offset") ?? 0);
-    if (!(limit >= 1 && limit <= 100) || !(offset >= 0)) throw err(400, "bad_request", "limit/offset");
+    if (!(limit >= 1 && limit <= 10000) || !(offset >= 0)) throw err(400, "bad_request", "limit/offset");
     let xs = items;
     const cat = q.get("category");
     const s = q.get("search")?.toLowerCase();

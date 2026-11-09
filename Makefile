@@ -1,4 +1,4 @@
-.PHONY: up down logs reseed smoke bench lint gen\:api
+.PHONY: up down ps logs reseed smoke bench lint gen\:api
 
 COMPOSE := docker compose
 PROJECT := polyglot-backend-benchmark
@@ -9,6 +9,9 @@ up:
 
 down:
 	$(COMPOSE) down
+
+ps:
+	$(COMPOSE) ps
 
 logs:
 	$(COMPOSE) logs -f

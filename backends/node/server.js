@@ -122,7 +122,7 @@ async function listItems(url, res) {
   const limit = intParam(q.get("limit"), 20);
   const offset = intParam(q.get("offset"), 0);
   let sort = q.get("sort") || "-created_at";
-  if (limit === null || limit < 1 || limit > 100) {
+  if (limit === null || limit < 1 || limit > 10000) {
     return err(res, 400, "bad_request", "invalid query");
   }
   if (offset === null || offset < 0) {

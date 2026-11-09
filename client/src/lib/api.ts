@@ -81,14 +81,16 @@ async function request<T>(b: BackendId, method: string, path: string, body?: unk
   return data as T;
 }
 
+export function listPath(q: ItemsQuery): string {
+  const p = new URLSearchParams({ limit: String(q.limit), offset: String(q.offset), sort: q.sort });
+  if (q.category) p.set("category", q.category);
+  if (q.search) p.set("search", q.search);
+  return `/items?${p}`;
+}
+
 export const api = {
   health: (b: BackendId) => request<{ status: string }>(b, "GET", "/health"),
-  list: (b: BackendId, q: ItemsQuery) => {
-    const p = new URLSearchParams({ limit: String(q.limit), offset: String(q.offset), sort: q.sort });
-    if (q.category) p.set("category", q.category);
-    if (q.search) p.set("search", q.search);
-    return request<ItemsPage>(b, "GET", `/items?${p}`);
-  },
+  list: (b: BackendId, q: ItemsQuery) => request<ItemsPage>(b, "GET", listPath(q)),
   create: (b: BackendId, d: ItemInput) => request<Item>(b, "POST", "/items", d),
   update: (b: BackendId, id: number, d: ItemInput) => request<Item>(b, "PUT", `/items/${id}`, d),
   remove: (b: BackendId, id: number) => request<void>(b, "DELETE", `/items/${id}`),

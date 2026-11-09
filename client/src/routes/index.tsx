@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { api, baseUrl, BACKENDS, type Item, type ItemInput, type SortKey } from "@/lib/api";
+import { api, baseUrl, BACKENDS, type BackendId, type Item, type ItemInput, type SortKey } from "@/lib/api";
 import { useBackend } from "@/lib/backend";
 import heroImg from "@/assets/hero-servers.jpg";
 import { ItemDialog } from "@/components/ItemDialog";
+import { CompareRun, REAL_BACKENDS } from "@/components/CompareRun";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/")({
 const LIMIT = 20;
 
 function ItemsPage() {
-  const { backend } = useBackend();
+  const { backend, setBackend } = useBackend();
   const qc = useQueryClient();
   const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
@@ -31,6 +32,15 @@ function ItemsPage() {
   const [sort, setSort] = useState<SortKey>("-created_at");
   const [offset, setOffset] = useState(0);
   const [editing, setEditing] = useState<Item | null | undefined>(undefined);
+  const [compareOpen, setCompareOpen] = useState(false);
+  const [compareNonce, setCompareNonce] = useState(0);
+  const [alive, setAlive] = useState<BackendId[]>([]);
+
+  useEffect(() => {
+    Promise.allSettled(REAL_BACKENDS.map((b) => api.health(b))).then((rs) =>
+      setAlive(REAL_BACKENDS.filter((_, i) => rs[i]!.status === "fulfilled")),
+    );
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -67,9 +77,16 @@ function ItemsPage() {
           </svg>
           <div className="relative flex flex-wrap gap-2">
             {BACKENDS.filter((b) => b.id !== "demo").map((b) => (
-              <span key={b.id} className={`rounded-full border px-3 py-1 text-xs font-medium ${b.id === backend ? "border-transparent bg-card-foreground text-card" : ""}`} style={b.id === backend ? undefined : { borderColor: "currentColor" }}>
+              <button
+                key={b.id}
+                type="button"
+                aria-pressed={b.id === backend}
+                onClick={() => setBackend(b.id)}
+                className={`rounded-full border px-3 py-1 text-xs font-medium ${b.id === backend ? "border-transparent bg-card-foreground text-card" : ""}`}
+                style={b.id === backend ? undefined : { borderColor: "currentColor" }}
+              >
                 {b.label}{b.port ? ` :${b.port}` : ""}
-              </span>
+              </button>
             ))}
           </div>
           <h1 className="relative mt-16 font-display text-5xl font-bold leading-[0.95] md:text-7xl">
@@ -114,7 +131,31 @@ function ItemsPage() {
           {categories.map((c) => <option key={c}>{c}</option>)}
         </select>
         <button onClick={() => setEditing(null)} className="rounded-full bg-primary px-6 py-2 font-medium text-primary-foreground">+ Создать</button>
+        <span className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              setCompareOpen(true);
+              setCompareNonce((n) => n + 1);
+            }}
+            disabled={alive.length < 2}
+            className="rounded-full border px-6 py-2 font-medium disabled:opacity-40"
+          >
+            Сравнить бэкенды
+          </button>
+          {alive.length < 2 && (
+            <span className="text-xs text-muted-foreground">
+              недоступно: живых бэкендов меньше двух ({alive.length ? alive.join(", ") : "ни одного"})
+            </span>
+          )}
+        </span>
       </section>
+
+      {compareOpen && alive.length >= 2 && (
+        <CompareRun
+          runNonce={compareNonce}
+          query={{ limit: LIMIT, offset, sort, category: category || undefined, search: search || undefined }}
+        />
+      )}
 
       <section className="card-outline overflow-hidden">
         {list.isError ? (

@@ -199,7 +199,7 @@ func (a *app) health(w http.ResponseWriter, r *http.Request) {
 func (a *app) listItems(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
 	limit, err := intParam(q.Get("limit"), 20)
-	if err != nil || limit < 1 || limit > 100 {
+	if err != nil || limit < 1 || limit > 10000 {
 		writeErr(w, http.StatusBadRequest, "bad_request", "invalid query")
 		return
 	}

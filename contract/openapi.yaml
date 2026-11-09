@@ -34,7 +34,7 @@ paths:
           schema:
             type: integer
             minimum: 1
-            maximum: 100
+            maximum: 10000
             default: 20
         - name: offset
           in: query
