@@ -202,12 +202,13 @@ function update_item(int $id): void
 
 function delete_item(int $id): void
 {
-    $del = db()->prepare('DELETE FROM items WHERE id = ?');
+    $del = db()->prepare('DELETE FROM items WHERE id = ? RETURNING id');
     $del->execute([$id]);
-    if ($del->rowCount() === 0) {
+    if (!$del->fetch()) {
         err(404, 'not_found', 'item not found');
     }
     http_response_code(204);
+    exit;
 }
 
 function build_where(string $category, string $search): array
