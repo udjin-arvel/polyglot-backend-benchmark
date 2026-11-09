@@ -2,18 +2,20 @@
   "scenario": "read-heavy",
   "backend": "go",
   "mode": "ramp-up",
-  "rps_target": 1000,
-  "rps_actual": 827.9,
+  "rps_target": 20,
+  "rps_actual": 8.9,
   "latency": {
-    "p50": 1.6,
-    "p95": 4.2,
-    "p99": 7.5
+    "p50": 56.6,
+    "p95": 85.3,
+    "p99": 91.1
   },
-  "rss_mb": 46,
-  "rss_idle_mb": 28,
-  "cpu_pct": 64,
-  "cold_start_ms": 180,
-  "image_mb": 14,
-  "loc": 410,
-  "timestamp": "2026-11-01T12:00:00Z"
+  "failed_pct": 0,
+  "runs": 1,
+  "rss_mb": 11.6,
+  "rss_idle_mb": 4.9,
+  "cpu_pct": 13.5,
+  "timestamp": "2026-11-09T11:07:26Z",
+  "image_mb": 8.3,
+  "loc": 527,
+  "cold_start_ms": 740
 }

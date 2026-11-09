@@ -2,18 +2,20 @@
   "scenario": "aggregate",
   "backend": "php",
   "mode": "fixed-rps",
-  "rps_target": 120,
-  "rps_actual": 90.7,
+  "rps_target": 20,
+  "rps_actual": 16.7,
   "latency": {
-    "p50": 8.2,
-    "p95": 21.3,
-    "p99": 38.5
+    "p50": 41.6,
+    "p95": 43.7,
+    "p99": 47.4
   },
-  "rss_mb": 79,
-  "rss_idle_mb": 48,
-  "cpu_pct": 43,
-  "cold_start_ms": 610,
-  "image_mb": 96,
-  "loc": 290,
-  "timestamp": "2026-11-01T12:00:00Z"
+  "failed_pct": 0,
+  "runs": 1,
+  "rss_mb": 42.0,
+  "rss_idle_mb": 30.7,
+  "cpu_pct": 7.4,
+  "timestamp": "2026-11-09T11:17:42Z",
+  "image_mb": 60.5,
+  "loc": 320,
+  "cold_start_ms": 700
 }

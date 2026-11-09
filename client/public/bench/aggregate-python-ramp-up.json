@@ -2,18 +2,20 @@
   "scenario": "aggregate",
   "backend": "python",
   "mode": "ramp-up",
-  "rps_target": 300,
-  "rps_actual": 166.2,
+  "rps_target": 20,
+  "rps_actual": 8.4,
   "latency": {
-    "p50": 6.8,
-    "p95": 17.7,
-    "p99": 32.0
+    "p50": 37.5,
+    "p95": 39,
+    "p99": 39.6
   },
-  "rss_mb": 124,
-  "rss_idle_mb": 71,
-  "cpu_pct": 55,
-  "cold_start_ms": 780,
-  "image_mb": 148,
-  "loc": 310,
-  "timestamp": "2026-11-01T12:00:00Z"
+  "failed_pct": 0,
+  "runs": 1,
+  "rss_mb": 21.2,
+  "rss_idle_mb": 20.3,
+  "cpu_pct": 4.5,
+  "timestamp": "2026-11-09T11:18:58Z",
+  "image_mb": 51.3,
+  "loc": 396,
+  "cold_start_ms": 3170
 }

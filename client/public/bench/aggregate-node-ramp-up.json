@@ -2,18 +2,20 @@
   "scenario": "aggregate",
   "backend": "node",
   "mode": "ramp-up",
-  "rps_target": 300,
-  "rps_actual": 193.5,
+  "rps_target": 20,
+  "rps_actual": 8.4,
   "latency": {
-    "p50": 4.6,
-    "p95": 12.0,
-    "p99": 21.6
+    "p50": 36.7,
+    "p95": 38.4,
+    "p99": 39.7
   },
-  "rss_mb": 88,
-  "rss_idle_mb": 62,
-  "cpu_pct": 43,
-  "cold_start_ms": 420,
-  "image_mb": 182,
-  "loc": 330,
-  "timestamp": "2026-11-01T12:00:00Z"
+  "failed_pct": 0,
+  "runs": 1,
+  "rss_mb": 17.4,
+  "rss_idle_mb": 12.0,
+  "cpu_pct": 4.2,
+  "timestamp": "2026-11-09T11:17:17Z",
+  "image_mb": 77.2,
+  "loc": 323,
+  "cold_start_ms": 770
 }

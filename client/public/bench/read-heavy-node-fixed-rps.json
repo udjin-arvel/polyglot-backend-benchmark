@@ -2,18 +2,20 @@
   "scenario": "read-heavy",
   "backend": "node",
   "mode": "fixed-rps",
-  "rps_target": 400,
-  "rps_actual": 360.3,
+  "rps_target": 20,
+  "rps_actual": 17.7,
   "latency": {
-    "p50": 2.7,
-    "p95": 7.0,
-    "p99": 12.7
+    "p50": 39.5,
+    "p95": 63.9,
+    "p99": 68.2
   },
-  "rss_mb": 81,
-  "rss_idle_mb": 62,
-  "cpu_pct": 43,
-  "cold_start_ms": 420,
-  "image_mb": 182,
-  "loc": 330,
-  "timestamp": "2026-11-01T12:00:00Z"
+  "failed_pct": 0,
+  "runs": 1,
+  "rss_mb": 17.4,
+  "rss_idle_mb": 12.0,
+  "cpu_pct": 4.2,
+  "timestamp": "2026-11-09T11:08:01Z",
+  "image_mb": 77.2,
+  "loc": 323,
+  "cold_start_ms": 770
 }

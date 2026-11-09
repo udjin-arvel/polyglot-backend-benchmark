@@ -191,6 +191,8 @@ services:
       context: ./client
     ports:
       - "8080:8080"
+    volumes:
+      - ./client/public/bench:/app/.output/public/bench:ro
     networks:
       - polyglot-net
     depends_on:
@@ -224,13 +226,19 @@ services:
       context: ./bench
     volumes:
       - ./bench/scenarios:/bench/scenarios:ro
+      - ./bench/run-all.sh:/bench/run-all.sh:ro
       - ./bench/results:/bench/results
       - ./scripts:/scripts:ro
       - .:/repo:ro
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - polyglot-net
     environment:
       BENCH_QUICK: ${BENCH_QUICK:-0}
+      RPS_TARGET: ${RPS_TARGET:-}
+      BENCH_DURATION: ${BENCH_DURATION:-}
+      BENCH_WARMUP: ${BENCH_WARMUP:-}
+      BENCH_RUNS: ${BENCH_RUNS:-}
     depends_on:
       backend-go:
         condition: service_healthy

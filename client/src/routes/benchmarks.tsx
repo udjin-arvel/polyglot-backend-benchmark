@@ -37,8 +37,13 @@ const MODES = ["fixed-rps", "ramp-up"];
 const ORDER = ["go", "node", "php", "python"];
 
 async function loadResults(): Promise<Result[]> {
-  const files: string[] = await fetch("/bench/index.json").then((r) => r.json());
-  return Promise.all(files.map((f) => fetch(`/bench/${f}`).then((r) => r.json())));
+  const files: string[] = await fetch("/bench/index.json", { cache: "no-store" }).then((r) => r.json());
+  const rows = await Promise.all(
+    files
+      .filter((f) => f.endsWith(".json") && f !== "index.json")
+      .map((f) => fetch(`/bench/${f}`, { cache: "no-store" }).then((r) => r.json())),
+  );
+  return rows.filter((r): r is Result => !!r && typeof r.scenario === "string");
 }
 
 const axis = { stroke: "var(--muted-foreground)", fontSize: 12 };
@@ -96,7 +101,7 @@ function BenchPage() {
           <div className="grid gap-4 md:grid-cols-2">
             <Chart title="RPS" data={rows} keys={[{ k: "rps_actual", name: "RPS", color: "var(--chart-1)" }]} />
             <Chart title="Латентность, мс" data={rows} keys={[
-              { k: "p50", name: "p50", color: "var(--chart-2)" },
+              { k: "p50", name: "p50", color: "oklch(0.92 0.12 90)" },
               { k: "p95", name: "p95", color: "var(--chart-1)" },
               { k: "p99", name: "p99", color: "var(--chart-3)" },
             ]} />

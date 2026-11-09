@@ -3,6 +3,8 @@ set -eu
 src="${1:-bench/results}"
 dest="${2:-client/public/bench}"
 mkdir -p "$dest"
+list=$(mktemp)
+trap 'rm -f "$list"' EXIT
 for f in "$src"/*.json; do
   [ -f "$f" ] || continue
   base=$(basename "$f")
@@ -10,5 +12,6 @@ for f in "$src"/*.json; do
     index.json) continue ;;
   esac
   cp "$f" "$dest/$base"
+  printf '%s\n' "$base" >>"$list"
 done
-ls -1 "$dest" | jq -R . | jq -s . >"$dest/index.json"
+sort "$list" | jq -R . | jq -s . >"$dest/index.json"

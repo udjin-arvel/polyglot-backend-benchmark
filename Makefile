@@ -1,4 +1,4 @@
-.PHONY: up down ps logs reseed smoke bench lint gen\:api
+.PHONY: up up-d down ps logs reseed smoke bench lint gen\:api
 
 COMPOSE := docker compose
 PROJECT := polyglot-backend-benchmark
@@ -6,6 +6,9 @@ NET := $(PROJECT)_polyglot-net
 
 up:
 	$(COMPOSE) up -d --build
+
+up-d:
+	$(COMPOSE) up -d
 
 down:
 	$(COMPOSE) down
@@ -33,7 +36,7 @@ bench:
 	$(COMPOSE) --profile bench run --rm bench /bench/run-all.sh
 
 bench-quick:
-	BENCH_QUICK=1 $(COMPOSE) --profile bench run --rm -e BENCH_QUICK=1 bench /bench/run-all.sh
+	$(COMPOSE) --profile bench run --rm -e BENCH_QUICK=1 bench /bench/run-all.sh
 
 publish-bench:
 	sh scripts/publish-bench-results.sh bench/results client/public/bench

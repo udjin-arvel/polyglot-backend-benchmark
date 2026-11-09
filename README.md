@@ -2,6 +2,22 @@
 
 Четыре «тонких» HTTP-сервиса (Go, Node.js, PHP, Python) на одном **OpenAPI**-контракте, одной схеме PostgreSQL и **100 000** детерминированных записей. React-клиент в [`client/`](client/) переключает бэкенд и показывает результаты нагрузочных прогонов.
 
+<p align="center">
+  <a href="docs/demo-video.mp4"><img src="docs/readme-records.png" alt="Записи: переключение бэкенда и сравнение ответов Go, Node, PHP и Python" width="920"></a>
+</p>
+<p align="center">
+  <a href="docs/demo-video.mp4"><b>Видео</b></a>
+  &nbsp;·&nbsp;
+  <a href="docs/screen2.png">полный экран, эталон Go</a>
+  &nbsp;·&nbsp;
+  <a href="docs/screen3.png">эталон Node</a>
+</p>
+
+<p align="center">
+  <img src="docs/screen1.png" alt="Бенчмарки: RPS, латентность p50/p95/p99, RSS и cold-start" width="920">
+</p>
+<p align="center">Сценарий <b>read-heavy</b>, режим <b>fixed-rps</b>. Цифры на кадрах — демо-статика из репозитория.</p>
+
 ## Быстрый старт
 
 ```bash
@@ -47,16 +63,20 @@ pg: PostgreSQL 16, init из db/01-init.sql → 02-schema → 03-seed
 ## Бенчмарки
 
 ```bash
-make bench              # полная матрица (долго; 3 сценария × 4 бэкенда × 2 режима × 3 прогона)
-make bench-quick        # короткий прогон (проверка обвязки)
+make bench              # матрица на этой машине: 20 RPS, 1 прогон, прогрев 5 с (~15 мин)
+make bench-quick        # один прогон read-heavy / Go, 10 с
 make publish-bench      # скопировать bench/results → client/public/bench
 ```
 
-Сценарии: `bench/scenarios/` (k6). Методика:
+Тяжелее, на свободной машине: `make bench RPS_TARGET=200 BENCH_RUNS=3 BENCH_DURATION=2m BENCH_WARMUP=30`.
 
-- прогрев 30 с в `setup()`;
-- **fixed-rps** 200 и **ramp-up**;
-- медиана из 3 прогонов;
+Сценарии: `bench/scenarios/` (k6). По умолчанию:
+
+- прогрев 5 с;
+- **fixed-rps** 20 и **ramp-up** до 20;
+- read-heavy и mixed-crud по 30 с, aggregate 20 с;
+- при `BENCH_RUNS` > 1 в JSON пишется медиана;
+- `failed_pct` — доля неуспешных запросов. Если она большая или k6 пишет `Insufficient VUs`, цель по RPS не выдержана: снизьте `RPS_TARGET`;
 - JSON: `bench/results/<scenario>-<backend>-<mode>.json`;
 - UI читает статику из `client/public/bench/`.
 
